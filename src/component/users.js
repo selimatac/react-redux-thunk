@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {getUsers} from '../store/actions/usersAction'
+import {getCategory} from '../store/actions/categoryAction'
 
- class users extends Component {
+ class Users extends Component {
     componentDidMount(){
         this.props.getUsers()
         
@@ -16,7 +16,7 @@ import {getUsers} from '../store/actions/usersAction'
             <div>
                 {users.map(u => 
                      <React.Fragment key={u.id}>
-                         <h6 >{u.name}</h6> 
+                         <h3>{u.name}</h3> <small>{u.saved_by}</small>
                      </React.Fragment>
                 )}
             </div>
@@ -26,4 +26,4 @@ import {getUsers} from '../store/actions/usersAction'
 
 const mapStateToProps  = (state) => ({users:state.users})
 
-export default connect(mapStateToProps, {getUsers})(users)
+export default connect(mapStateToProps, {getCategory})(Users)

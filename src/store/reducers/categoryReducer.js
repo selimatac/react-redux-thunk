@@ -1,7 +1,7 @@
-import {GET_USERS} from '../types'
+import {GET_GATEGORY} from '../types'
 
 const initialState = {
-    users:[],
+    category:[],
     loading:true
 }
 
@@ -9,10 +9,10 @@ export default function(state = initialState, action){
 
     switch(action.type){
 
-        case GET_USERS:
+        case GET_GATEGORY:
         return {
             ...state,
-            users:action.payload,
+            category:action.payload,
             loading:false
 
         }

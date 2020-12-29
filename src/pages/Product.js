@@ -9,20 +9,25 @@ import Order from '../component/Order';
 import AmazonLoader from '../component/skeletons/ProductSkeleton';
 import Navbar from '../layouts/Navbar';
 class Product extends Component {
-  
+  state={
+      product:"asd"
+  }
     componentDidMount() {
         this.props.getProductsByParams();
+        this.setState({product:this.props.product});
     }
     componentDidUpdate() {
-        if (this.props) {
-        this.props.getProductsByParams();
-        // console.log(this.props)
-        }
+        // if (this.props) {
+        // this.props.getProductsByParams();
+        // // console.log(this.props)
+        // }
+        console.log("state",this.state.product);
     }
 
     render() {
         const { product } = this.props.product;
         var loading = this.props.product.loading;
+        console.log("state2",this.state.product);
         return (
             <React.Fragment>
 <Navbar />
@@ -32,32 +37,32 @@ class Product extends Component {
                         <div className="row no-gutters">
                             <aside className="col-md-12 col-lg-6">
                                 {
-                                    (!product.length) ? null : <Gallery photos={JSON.parse(product[0].product_info).photos} />
+                                    (!product) ? "" : <Gallery photos={JSON.parse(product[0].product_info).photos} />
                                 }
                             </aside>
                             <main className="col-md-12 col-lg-6">
                                 <article className="content-body">
 
-                                    <h2 className="title">{(!product.length) ? "---" : JSON.parse(product[0].product_info).name}</h2>
+                                    <h2 className="title">{(!product.length) ? "" : JSON.parse(product[0].product_info).name}</h2>
 
                                     <div className="mb-3">
-                                        <var className="price h4">{(!product.length) ? "---" : JSON.parse(product[0].product_info).price}₺</var>
+                                        <var className="price h4">{(!product.length) ? "" : JSON.parse(product[0].product_info).price}₺</var>
                                     </div>
 
-                                    <p>{(!product.length) ? "---" : JSON.parse(product[0].product_info).description}</p>
+                                    <p>{(!product.length) ? "" : JSON.parse(product[0].product_info).description}</p>
 
 
                                     <dl className="row">
                                         <dt className="col-sm-3">Ürün Kodu/</dt>
-                                        <dd className="col-sm-9">{(!product.length) ? "---" : JSON.parse(product[0].product_info).product_code}</dd>
+                                        <dd className="col-sm-9">{(!product.length) ? "" : JSON.parse(product[0].product_info).product_code}</dd>
 
                                         <dt className="col-sm-3">Renk</dt>
                                         <dd className="col-sm-9">Beyaz</dd>
                                         <dt className="col-sm-3">Kategori</dt>
-                                        <dd className="col-sm-9">{(!product.length) ? "---" : JSON.parse(product[0].product_info).category}</dd>
+                                        <dd className="col-sm-9">{(!product.length) ? "" : JSON.parse(product[0].product_info).category}</dd>
                                         <dt className="col-sm-3">Etiketler</dt>
                                         <dd className="col-sm-9">
-                                            {(!product.length) ? "---" : JSON.parse(product[0].product_info).tags.map((x, index) => <span className="badge badge-light d-inline-block p-1 mr-1" key={index}>{x}</span>)}
+                                            {(!product.length) ? "" : JSON.parse(product[0].product_info).tags.map((x, index) => <span className="badge badge-light d-inline-block p-1 mr-1" key={index}>{x}</span>)}
 
                                         </dd>
                                     </dl>

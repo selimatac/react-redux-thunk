@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 const Gallery = (props) => {
     var [photos, setPhotos] = useState(props.photos);
     var [photo, setPhoto] = useState((photos.length) ? photos[0].url : "no-image.jpg");
-    useEffect(() => {
-        console.log("useffect")
-        setPhotos({...props.photos})
-    }, [])
+    // useEffect(() => {
+    //     console.log("useffect")
+    //     setPhotos({...props.photos})
+    // }, [])
     return (
         <article className="gallery-wrap">
             <div className="img-big-wrap">

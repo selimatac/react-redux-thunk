@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategory } from '../store/actions/categoryAction'
 import slugify from '../component/helpers/Slugify';
+import CategoryTop from '../component/CategoryTop';
 
 class Navbar extends Component {
     componentDidMount() {
@@ -11,9 +12,8 @@ class Navbar extends Component {
     render() {
         const { category } = this.props.category;
         const parents = category.filter(x => x.parent_id === 0);
-        console.log("parents",category)
         return (
-
+            <React.Fragment>
             <nav className="navbar navbar-main navbar-expand-lg navbar-light">
                 <div className="container">
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="/main_nav"
@@ -22,6 +22,7 @@ class Navbar extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="main_nav">
                         <ul className="navbar-nav">
+                        <NavLink exact className="nav-link" to={"/urunler"}>Tümü</NavLink>
                             {
                                 //category map
                                 //category nin id si farklı birinin id si varmı filtrele ve bas.
@@ -41,7 +42,7 @@ class Navbar extends Component {
                                                         {
                                                             filtered.map((sub,subindex) => {
                                                                 return(
-                                                                    <NavLink className="dropdown-item" to={"/urunler/"+slugify(x.name) +"/"+ slugify(sub.name)} key={subindex}>{sub.name}</NavLink>
+                                                                    <NavLink exact className="dropdown-item" to={"/urunler/"+ slugify(sub.name)} key={subindex}>{sub.name}</NavLink>
                                                                 )
                                                             })
                                                         }
@@ -59,6 +60,7 @@ class Navbar extends Component {
                     </div>
                 </div>
             </nav>
+            </React.Fragment>
         )
     }
 }

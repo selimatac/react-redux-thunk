@@ -39,3 +39,49 @@ nav .nav-link.active{
 .list-menu a.active {
     color: #3167eb;
 }
+
+[class*="list-"] li:after{
+    display: none;
+}
+ /*.ss-search-list .list-group-item{
+    height: 68.5px; 
+}
+*/
+.search-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+.search-backdrop.fade {
+    transition: opacity .15s linear;
+}
+.search-backdrop.hide {
+    display: none;
+}
+
+.search-backdrop.show {
+    opacity: .3;
+}
+
+.search-result-container.hide{
+    display: none;
+}
+.search-result-container.show{
+    display: inherit;
+}
+
+button.list-group-item:focus{
+    outline: none;
+}
+
+.search-item-img{
+    width: 35px;
+    height:35px;
+    object-fit: cover;
+    margin-right: 16px
+}

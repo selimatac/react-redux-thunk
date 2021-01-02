@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getProductsByParams = (params) => async dispatch => {
   try {
-    const res = await axios.get(`http://localhost:3306/products/${params}`);
+    const res = await axios.get(`http://localhost:3306/product/${params}`);
     dispatch({
       type: GET_PRODUCTS_BY_PARAMS,
       payload: res.data,

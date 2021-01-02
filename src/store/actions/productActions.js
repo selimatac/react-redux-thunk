@@ -1,10 +1,9 @@
 import { GET_PRODUCTS, PRODUCTS_ERROR } from "../types";
 import axios from "axios";
 
-export const getProducts = () => async dispatch => {
+export const getProducts = (params) => async dispatch => {
   try {
-    const res = await axios.get(`http://localhost:3306/products`);
-
+    const res = await axios.get(`http://localhost:3306/products/${(params?params:"")}`);
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data

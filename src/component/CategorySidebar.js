@@ -3,12 +3,9 @@ import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategory } from '../store/actions/categoryAction'
 class CategorySidebar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+    state = {
             isShow: true
         }
-    }
     componentDidMount() {
         this.props.getCategory();
     }
@@ -23,10 +20,10 @@ class CategorySidebar extends Component {
                 <div className="card">
                     <article className="filter-group">
                         <header className="card-header">
-                            <Link to={""} onClick={() => this.setState({ isShow: !this.state.isShow })}>
+                            <a href="#" onClick={() => this.setState({ isShow: !this.state.isShow })}>
                                 <i className="icon-control fa fa-chevron-down"></i>
                                 <h6 className="title">Ürünler</h6>
-                            </Link>
+                            </a>
                         </header>
                         <div className={this.state.isShow ? "filter-content collapse show" : "filter-content collapse"}>
                             <div className="card-body">

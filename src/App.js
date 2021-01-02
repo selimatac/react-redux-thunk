@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import ProductCategory from './pages/ProductCategory';
 import Product from './pages/Product';
 import Users from './component/users'
+import UserSignUp from './pages/UserSignUp';
+import UserLogin from './pages/UserLogin';
 
 
 function App() {
@@ -17,8 +19,10 @@ function App() {
       
       <Switch>
         <Route path='/urun/:category/:id' component={Product} />
-        <Route path='/urunler' component={ProductCategory} />
+        <Route exact path={['/urunler/','/urunler/:category']} component={ProductCategory} />
         <Route exact path='/' component={Home} />
+        <Route path='/kayit' component={UserSignUp} />
+        <Route path='/giris' component={UserLogin} />
         <Redirect to='/' />
       </Switch>
       <Footer />

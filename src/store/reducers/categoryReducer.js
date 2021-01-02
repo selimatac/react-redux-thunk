@@ -14,7 +14,6 @@ export default function(state = initialState, action){
             ...state,
             category:action.payload,
             loading:false
-
         }
         default: return state
     }

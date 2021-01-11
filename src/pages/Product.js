@@ -21,7 +21,7 @@ class Product extends Component {
         return (
             <React.Fragment>
                 <Navbar />
-                <CategoryTop title={(!product.length) ? "false" : JSON.parse(product[0].product_info).name} category={(!product.length) ? "false" : JSON.parse(product[0].product_info).category.name} />
+                <CategoryTop title={(!product.length) ? "" : JSON.parse(product[0].product_info).name} category={(!product.length) ? "" : JSON.parse(product[0].product_info).category.name} />
                 {loading ? <div className="container text-center"><AmazonLoader /></div> :
                     <div className="container">
                         <div className="row no-gutters">

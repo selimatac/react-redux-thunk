@@ -66,7 +66,7 @@ class ProductList extends Component {
                                 <main className="col-md-12">
                                     <header className="border-bottom mb-4 pb-3">
                                         <div className="form-inline">
-                                            <span className="mr-md-auto">{products.length} Ürün Listeleniyor </span>
+                                            <span className="mr-md-auto">{products.length == 0 ?"Bu kategoride hiçbir ürün yok.":products.length +" adet ürün listeleniyor"} </span>
                                             <select className="mr-2 form-control" value={this.state.orderby} onChange={(e) => this.setState({ orderby: e.target.value })}>
                                                 <option value="all">Tümü</option>
                                                 <option value="priceByAsc">Fiyata Göre Artan</option>

@@ -1,80 +1,72 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchProducts } from '../store/actions/searchActions'
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class SearchInput extends Component {
     state = {
         search: "",
-        backdrop: "hide",
+        backdrop: "hide"
     }
 
     componentDidMount() {
+        console.log("componentDidMount");
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("this.props>>", this.props.searchList.searchList)
-        if ( this.state.search.length > 0) {
+        // console.log("this.props>>", this.props.searchList.searchList)
+        if (this.state.search.length > 0) {
             if (prevState.search !== this.state.search) {
-                setTimeout(() => {
+                // setTimeout(() => {
                 this.props.searchProducts(this.state.search);
-                }, 500);
+                // }, 500);
             }
+
         }
     }
-
+    componentWillUnmount() {
+        console.log("componentWillUnmount")
+    }
     render() {
-        
         return (
             <React.Fragment>
                 <form className="search" style={styles.form}>
                     <div className="input-group w-100">
                         <input
-                            // value={this.state.search}
+                            value={this.state.search}
                             //onBlur={() => this.setState({ backdrop: "hide", search: "" })}
                             onFocus={() => this.setState({ backdrop: "show" })}
-                            onKeyUp={(e) => this.setState({ search: e.target.value })}
+                            onChange={(e) => this.setState({ search: e.target.value })}
                             type="text" className="form-control" placeholder="ürün veya kategori ara..." />
                         <div className="input-group-append">
-                            <button className="btn btn-success" type="submit">
+                            <button className="btn btn-primary" type="submit">
                                 <i className="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
                     <div className={"search-result-container " + (this.state.search ? "show" : "hide")} style={styles.input}>
                         <ul className="list-group list-group-flush ss-search-list" style={styles.container}>
-                           
-                            {
-                            this.props.searchList.searchList.category?this.props.searchList.searchList.category.map(item=> 
-                                  <a href={"/urunler/" + item.slug} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                        {item.name}
-                                        <span className="badge badge-secondary badge-pill">kategori</span>
-                                    </a>
-                            ):null}
 
                             {
-                                this.props.searchList.searchList.product?this.props.searchList.searchList.product.map((item, index) => {
+                                this.props.searchList.searchList.category ? this.props.searchList.searchList.category.map(item =>
+                                    <a href={"/urunler/" + item.slug} className="list-group-item list-group-item-action d-flex align-items-center">
+                                        {ReactHtmlParser(item.name.replace(new RegExp(this.state.search, "ig"), `<strong>${this.state.search}</strong>`))}
+                                        <span className="badge badge-secondary badge-pill ml-auto">kategori</span>
+                                    </a>
+                                ) : null}
+
+                            {
+                                this.props.searchList.searchList.product ? this.props.searchList.searchList.product.map((item, index) => {
                                     var product_info = JSON.parse(item.product_info)
                                     return (
                                         <a href={"/urun/" + product_info.category.value + "/" + product_info.slug} className="list-group-item list-group-item-action d-flex align-items-center">
                                             <img className="search-item-img" src={"../../images/products/" + (product_info.photos.length > 0 ? product_info.photos[0].url : "no-image.jpg")} alt={product_info.name} />
-                                            {product_info.name}
+                                            {ReactHtmlParser(product_info.name.replace(new RegExp(this.state.search, "ig"), `<strong>${this.state.search} </strong>`))}
                                         </a>
                                     )
-                    
-                                }):null
+
+                                }) : null
                             }
-                            {/* <button className="list-group-item list-group-item-action d-flex align-items-center">
-                                <img style={styles.image} src="../images/products/img1.jpg" alt="Çiçek" />
-                            Cras justo odio
-                        </button>
-                            <button className="list-group-item list-group-item-action d-flex align-items-center">
-                                <img style={styles.image} src="../images/products/img2.jpg" alt="Çiçek" />
-                            Cras justo odio
-                        </button>
-                            <button className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                Buket
-                                <span className="badge badge-secondary badge-pill">kategori</span>
-                            </button> */}
                         </ul>
                     </div>
 

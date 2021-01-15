@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import SearchInput from '../component/SearchInput';
 
 class Header extends Component {
+    state={
+        isAuth:this.props.isAuth
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.isAuth !== prevProps.isAuth){
+            this.setState({isAuth:true})
+            console.log("değişti")
+        }
+    }
+    
     render() {
         return (
             <header className="section-header">
@@ -39,23 +49,24 @@ class Header extends Component {
                             </div> */}
                             <div className="col-md-5 col-lg-4 col-sm-12 col-12 text-md-right">
                                 <div>{
-                                    sessionStorage.getItem("isLoggedIn")!="true"?
-                                    <div class="btn-group" role="group">
+                                    !this.props.isAuth?
+                                    <div className="btn-group" role="group">
                                         <Link to="/giris" className="btn btn-outline-primary">Giriş Yap</Link>
                                         <Link to="/kayit" className="btn btn-outline-primary">Kayıt Ol</Link>
-                                    </div>:null}
-                                    <div class="dropdown btn">
-                                        <button class="btn btn-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </div>:
+                                    <div className="dropdown btn p-0">
+                                        <button className="btn btn-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Hesabım</button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Profil</a>
-                                            <a class="dropdown-item" href="#">Siparişlerim</a>
-                                            <a class="dropdown-item" href="#">Favorilerim</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Çıkış Yap</a>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a className="dropdown-item" href="#">Profil</a>
+                                            <a className="dropdown-item" href="#">Siparişlerim</a>
+                                            <a className="dropdown-item" href="#">Favorilerim</a>
+                                            <div className="dropdown-divider"></div>
+                                            <button className="dropdown-item" onClick={() => {sessionStorage.removeItem("customer_info");sessionStorage.removeItem("isLoggedIn"); window.location.href = "/"}} >Çıkış Yap</button>
                                         </div>
                                     </div>
-                                    <button className="btn float-right btn-light d-md-none" type="button" data-toggle="collapse" data-target="#main_nav8" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                                    }
+                                    <button className="btn float-right btn-light d-md-none" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
                                         <i className="fa fa-bars"></i>
                                     </button>
                                 </div>

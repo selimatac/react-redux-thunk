@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { GoogleLogin } from 'react-google-login';
 import { customerLogin } from '../store/actions/customerLoginAction'
 import { MyAlert } from '../component/helpers/Myalert';
+import { withSnackbar } from 'react-simple-snackbar'
 class UserLogin extends Component {
 
 
@@ -16,7 +17,7 @@ class UserLogin extends Component {
             isShow: false
         }
     }
-    componentDidMount() {
+    nentDidMount() {
         // console.log(this.props)
         // console.log("componentDidMount")
     }
@@ -25,9 +26,13 @@ class UserLogin extends Component {
             if (this.props.customerloginInfo.customerloginInfo[0].isLoggedIn) {
                 this.setState({ errors: { ...this.state.errors, isShow: false } })
                 window.sessionStorage.setItem("customer_info", JSON.stringify(this.props.customerloginInfo.customerloginInfo[0]))
-                window.sessionStorage.setItem("isLoggedIn",true)
+                window.sessionStorage.setItem("isLoggedIn",true);
+                this.props.history.push("/")
+
             } else {
-                this.setState({ errors: { ...this.state.errors, isShow: true } })
+                // this.setState({ errors: { ...this.state.errors, isShow: true } });
+                this.props.openSnackbar("Kullanıcı Adı Veya Şifre Yanlış!");
+
             }
         }
     }
@@ -40,10 +45,11 @@ class UserLogin extends Component {
         //     console.log("responseGoogle",res)
         //     console.log("profileObj",res.profileObj)
         // }
+        const { openSnackbar, closeSnackbar } = this.props
         return (
-            <section className="section-conten padding-y" style={{ "min-height": "84vh" }}>
+            <section className="section-conten padding-y" style={{ "minHeight": "84vh" }}>
                 <p className="text-center">Hesabın yok mu? <Link to="/kayit">Kayıt Ol</Link></p>
-                <div className="card mx-auto" style={{ "max-width": "380px" }}>
+                <div className="card mx-auto" style={{ "maxWidth": "380px" }}>
                     <div className="card-body">
                         <h4 className="card-title text-center mb-4">Giriş Yap</h4>
                         <form onSubmit={this.handleSubmit}>
@@ -59,7 +65,7 @@ class UserLogin extends Component {
                             <MyAlert
                                 parentClass={"form-group"}
                                 isShow={this.state.errors.isShow}
-                                alertType={"info"}
+                                alertType={"danger"}
                                 message={"Kullanıcı Adı Veya Şifre Yanlış!"}
                             />
                             <div className="form-group">
@@ -87,4 +93,4 @@ class UserLogin extends Component {
 
 const mapStateToProps = (state) => ({ customerloginInfo: state.customerloginInfo });
 
-export default connect(mapStateToProps, { customerLogin })(UserLogin);
+export default connect(mapStateToProps, { customerLogin })(withSnackbar(UserLogin));

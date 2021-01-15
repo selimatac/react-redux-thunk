@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store/store'
-import {Provider} from 'react-redux';
-
+import { Provider } from 'react-redux';
+import SnackbarProvider from 'react-simple-snackbar'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <SnackbarProvider>
+        <App />
+      </SnackbarProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

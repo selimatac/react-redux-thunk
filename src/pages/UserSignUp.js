@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { insertCustomer } from '../store/actions/insertCustomerActions'
 import { RegionDropdown } from 'react-country-region-selector';
 import { MyAlert } from '../component/helpers/Myalert';
+import { withSnackbar } from 'react-simple-snackbar'
 
 class UserSignUp extends Component {
     state = {
@@ -47,11 +48,22 @@ class UserSignUp extends Component {
     componentDidUpdate(prevProps, prevState) {
 
         if (prevProps.customer.customer !== this.props.customer.customer) {
-            alert("Başarılı")
+            if (this.props.customer.customer.errorMessage) {
+                this.props.openSnackbar(this.props.customer.customer.errorMessage);
+                // setTimeout(() => {
+                //     this.props.closeSnackbar
+                // }, 1000);
+            } else {
+                this.props.openSnackbar("Başarılı")
+            }
         }
     }
-
+    
     render() {
+
+        const { openSnackbar, closeSnackbar } = this.props
+
+
         const handleSubmit = (event, data) => {
             event.preventDefault();
             if (data.accounttype == "Bireysel") {
@@ -59,13 +71,13 @@ class UserSignUp extends Component {
             } else if (data.accounttype == "Kurumsal") {
                 this.setState({ errorlist: { ...this.state.errorlist, companyPasswordIsSame: (data.password == data.retypepassword) } })
             }
-            if(data.password == data.retypepassword){
+            if (data.password == data.retypepassword) {
                 this.props.insertCustomer(JSON.stringify(data));
             }
         }
         return (
             <section class="section-content padding-y">
-                <p class="text-center mt-4">Hesabın var mı? <Link to="/giris">Giriş Yap</Link></p>
+                <p class="text-center">Hesabın var mı? <Link to="/giris">Giriş Yap</Link></p>
 
                 <div class="card mx-auto" style={{ "max-width": "520px" }}>
                     <article class="card-body">
@@ -93,7 +105,7 @@ class UserSignUp extends Component {
                                     </div>
                                     <div class="form-group">
                                         <label>E-posta</label>
-                                        <input required value={this.state.personal.email} onChange={(e) => this.setState({ personal: { ...this.state.personal, email: e.target.value } })} type="email" class="form-control" placeholder="" />
+                                        <input id="personalEmail" required value={this.state.personal.email} onChange={(e) => this.setState({ personal: { ...this.state.personal, email: e.target.value } })} type="email" class="form-control" placeholder="" />
                                     </div>
                                     <div class="form-group">
                                         <label>İletişim Telefonu</label>
@@ -167,7 +179,7 @@ class UserSignUp extends Component {
                                     </div>
                                     <div class="form-group">
                                         <label>E-posta</label>
-                                        <input onChange={(e) => this.setState({ company: { ...this.state.company, email: e.target.value } })} type="email" class="form-control" placeholder="" />
+                                        <input id="companyEmail" onChange={(e) => this.setState({ company: { ...this.state.company, email: e.target.value } })} type="email" class="form-control" placeholder="" />
                                     </div>
                                     <div class="form-group">
                                         <label>İletişim Telefonu</label>
@@ -204,7 +216,7 @@ class UserSignUp extends Component {
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block"> Kayıt Ol  </button>
                                     </div>
-                                    <MyAlert parentClass={"form-group"} alertType={"danger"} message={"Şifreler aynı olmalıdır!"} isShow={!this.state.errorlist.companyPasswordIsSame}/>
+                                    <MyAlert parentClass={"form-group"} alertType={"danger"} message={"Şifreler aynı olmalıdır!"} isShow={!this.state.errorlist.companyPasswordIsSame} />
 
                                     <div class="form-group">
                                         <label class="custom-control custom-checkbox" >
@@ -226,4 +238,4 @@ class UserSignUp extends Component {
 
 const mapStateToProps = (state) => ({ customer: state.customer });
 
-export default connect(mapStateToProps, { insertCustomer })(UserSignUp);
+export default connect(mapStateToProps, { insertCustomer })(withSnackbar(UserSignUp));

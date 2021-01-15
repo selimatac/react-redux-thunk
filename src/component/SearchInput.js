@@ -84,26 +84,26 @@ class SearchInput extends Component {
 const styles = {
     container: {
         "border": "1px solid rgba(0, 0, 0, 0.125)",
-        "border-radius": "10px",
+        "borderRadius": "10px",
         "overflow": "hidden"
     },
     input: {
         "position": "absolute",
-        "z-index": "1041",
+        "zIndex": "1041",
         "width": "100%",
-        "margin-top": "5px",
-        "max-height": "300px",
+        "marginTop": "5px",
+        "maxHeight": "300px",
         "overflow": "auto"
     },
     form: {
         "position": "relative",
-        "z-index": "1041"
+        "zIndex": "1041"
     },
     image: {
         "width": "45px",
         "height": "45px",
         "object-fit": "cover",
-        "margin-right": "16px"
+        "marginRight": "16px"
     }
 }
 

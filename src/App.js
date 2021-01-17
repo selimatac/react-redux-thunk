@@ -9,6 +9,7 @@ import Product from './pages/Product';
 import Users from './component/users'
 import UserSignUp from './pages/UserSignUp';
 import UserLogin from './pages/UserLogin';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   const [checkAuth, setCheckAuth] = useState(false)
@@ -27,6 +28,7 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route path='/kayit' component={UserSignUp} />
         <Route path='/giris' component={UserLogin} />
+        <Route path='/profil' component={ProfilePage}/>
         <Redirect to='/' />
       </Switch>
       <Footer />

@@ -14,7 +14,7 @@ class Navbar extends Component {
         const parents = category.filter(x => x.parent_id === 0);
         return (
             <React.Fragment>
-            <nav className="navbar navbar-main navbar-expand-lg navbar-light">
+            <nav className="navbar navbar-main navbar-expand-md navbar-light">
                 <div className="container">
                     {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="/main_nav"
                         aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">

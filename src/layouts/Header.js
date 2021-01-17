@@ -47,7 +47,7 @@ class Header extends Component {
                                     </div>
                                 </div>
                             </div> */}
-                            <div className="col-md-5 col-lg-4 col-sm-12 col-12 text-md-right">
+                            <div className="col-md-12 col-lg-4 col-sm-12 col-12 text-md-right">
                                 <div>{
                                     !this.props.isAuth?
                                     <div className="btn-group" role="group">

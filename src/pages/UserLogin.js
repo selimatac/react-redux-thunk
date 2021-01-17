@@ -27,7 +27,8 @@ class UserLogin extends Component {
                 this.setState({ errors: { ...this.state.errors, isShow: false } })
                 window.sessionStorage.setItem("customer_info", JSON.stringify(this.props.customerloginInfo.customerloginInfo[0]))
                 window.sessionStorage.setItem("isLoggedIn",true);
-                this.props.history.push("/")
+                //this.props.history.push("/")
+                window.location.href = window.location.origin
 
             } else {
                 // this.setState({ errors: { ...this.state.errors, isShow: true } });
